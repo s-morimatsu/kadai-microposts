@@ -40,6 +40,14 @@ class UsersController < ApplicationController
     counts(@user)
   end
   
+  def fav_posts # user.rb でのリレーションメソッド
+    @user = User.find(params[:id])
+    @pagy, @microposts = pagy(current_user.fav_posts.order(id: :desc), items: 10)
+    #@pagy, @followers = pagy(@user.followers)
+    #@count_favorites = @user.fav_posts.count
+    counts(@user)
+  end
+  
   private
 
   def user_params
